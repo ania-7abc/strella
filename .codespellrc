@@ -1,0 +1,8 @@
+[codespell]
+builtin = clear,rare,en-GB_to_en-US,names,informal,code
+check-filenames =
+check-hidden =
+skip = */.git,*/build,*/prefix,*/conan
+quiet-level = 2
+# Valid identifiers and HTML elements that codespell mistakes for typos.
+ignore-words-list = atEnd,carryIn,colour,deque,normalise,thead

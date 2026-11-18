@@ -1,0 +1,15 @@
+BasedOnStyle: LLVM
+ColumnLimit: 80
+IndentWidth: 2
+BreakBeforeBraces: Allman
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakTemplateDeclarations: Yes
+DerivePointerAlignment: false
+PointerAlignment: Left
+ReferenceAlignment: Left
+SpaceAfterCStyleCast: true
+SpaceBeforeParens: ControlStatements
+SpaceBeforeCpp11BracedList: true
+BreakBeforeBinaryOperators: All
