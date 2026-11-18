@@ -44,8 +44,8 @@ private:
   [[nodiscard]] auto flag(strella::isa::Cond condition) const -> bool;
   void setZS(std::uint8_t value);
   auto add(std::uint8_t left, std::uint8_t right, bool carry) -> std::uint8_t;
-  auto subtract(std::uint8_t left, std::uint8_t right, bool borrow)
-      -> std::uint8_t;
+  auto subtract(std::uint8_t left, std::uint8_t right,
+                bool borrow) -> std::uint8_t;
   void execute(std::uint8_t opcode);
 
   std::vector<std::uint8_t> image_;

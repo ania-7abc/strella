@@ -154,8 +154,8 @@ void Machine::setZS(std::uint8_t value)
   s_ = (value & 0x80) != 0;
 }
 
-auto Machine::add(std::uint8_t left, std::uint8_t right, bool carry)
-    -> std::uint8_t
+auto Machine::add(std::uint8_t left, std::uint8_t right,
+                  bool carry) -> std::uint8_t
 {
   auto const carryIn = carry && cf_ ? 1 : 0;
   auto const sum = static_cast<int>(left) + static_cast<int>(right) + carryIn;
@@ -167,8 +167,8 @@ auto Machine::add(std::uint8_t left, std::uint8_t right, bool carry)
   return result;
 }
 
-auto Machine::subtract(std::uint8_t left, std::uint8_t right, bool borrow)
-    -> std::uint8_t
+auto Machine::subtract(std::uint8_t left, std::uint8_t right,
+                       bool borrow) -> std::uint8_t
 {
   auto const borrowIn = borrow && cf_ ? 1 : 0;
   auto const difference

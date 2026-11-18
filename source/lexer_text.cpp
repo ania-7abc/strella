@@ -46,8 +46,8 @@ auto keywordKind(std::string const& text) -> TokenKind
 }
 
 auto decodeUtf8(std::string const& text, std::size_t& index,
-                std::string const& file, SourceLocation const& location)
-    -> std::uint32_t
+                std::string const& file,
+                SourceLocation const& location) -> std::uint32_t
 {
   auto const first = static_cast<unsigned char>(text[index]);
   if (first < 0x80)
@@ -207,8 +207,8 @@ auto escapeValue(char c) -> int
 
 auto parseHexEscape(std::string const& source, std::size_t& pos,
                     std::size_t& line, std::size_t& column,
-                    std::string const& file, SourceLocation const& location)
-    -> int
+                    std::string const& file,
+                    SourceLocation const& location) -> int
 {
   int value = 0;
   for (int i = 0; i < 2; ++i)

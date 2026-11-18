@@ -199,8 +199,8 @@ auto CodeGen::Impl::emitCopyToStackPointer(Expr& source, int size) -> void
   releaseTemp(srcTemp);
 }
 
-auto CodeGen::Impl::emitWriteValueAtTemp(int destTemp, int offset, Expr& value)
-    -> void
+auto CodeGen::Impl::emitWriteValueAtTemp(int destTemp, int offset,
+                                         Expr& value) -> void
 {
   auto const wide = value.type.isWide();
   auto const valueTemp = allocTemp();

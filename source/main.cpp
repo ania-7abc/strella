@@ -35,8 +35,8 @@ auto usage() -> void
       << "  -h, --help         show this message\n";
 }
 
-auto withExtension(std::string const& input, std::string const& extension)
-    -> std::string
+auto withExtension(std::string const& input,
+                   std::string const& extension) -> std::string
 {
   auto const slash = input.find_last_of('/');
   auto const dot = input.find_last_of('.');

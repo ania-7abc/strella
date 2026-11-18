@@ -22,7 +22,7 @@ namespace strella
  */
 auto disassemble(std::vector<std::uint8_t> const& bytes,
                  bool showAddresses = true,
-                 std::vector<std::pair<int, int>> const& dataRanges = {})
-    -> std::string;
+                 std::vector<std::pair<int, int>> const& dataRanges
+                 = {}) -> std::string;
 
 } // namespace strella

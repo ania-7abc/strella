@@ -159,8 +159,8 @@ auto CodeGen::Impl::emitExtendOperand(Expr const& operand, bool wide) -> void
   emitLabel(doneLabel);
 }
 
-auto CodeGen::Impl::emitLoadTemp(int index, bool word, Reg low, Reg high)
-    -> void
+auto CodeGen::Impl::emitLoadTemp(int index, bool word, Reg low,
+                                 Reg high) -> void
 {
   if (!current_->stackBased)
   {
@@ -261,8 +261,8 @@ auto CodeGen::Impl::emitTempAddress(int index) -> void
 }
 
 auto CodeGen::Impl::emitDirectFieldAddress(Expr& expression, int offset,
-                                           Reg addressReg, bool preserveAB)
-    -> bool
+                                           Reg addressReg,
+                                           bool preserveAB) -> bool
 {
   if (expression.kind != ExprKind::FieldAccess
       || expression.lhs->kind != ExprKind::Identifier

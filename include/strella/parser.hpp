@@ -39,8 +39,8 @@ private:
   auto parseStaticAssert() -> StmtPtr;
   auto parseGlobalDeclaration() -> std::unique_ptr<VarDecl>;
   auto parseVarDeclaration() -> std::unique_ptr<VarDecl>;
-  auto parseFunction(FunctionAnnotation annotation)
-      -> std::unique_ptr<FunctionDecl>;
+  auto
+  parseFunction(FunctionAnnotation annotation) -> std::unique_ptr<FunctionDecl>;
   auto parseBlock() -> StmtPtr;
   auto parseStatement() -> StmtPtr;
   auto parseSwitchCase(std::vector<SwitchCase>& cases) -> void;

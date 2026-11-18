@@ -233,8 +233,8 @@ struct Program
     return symbols.back().get();
   }
 
-  [[nodiscard]] auto findFunction(std::string const& name) const
-      -> FunctionDecl*
+  [[nodiscard]] auto
+  findFunction(std::string const& name) const -> FunctionDecl*
   {
     for (auto const& function : functions)
     {

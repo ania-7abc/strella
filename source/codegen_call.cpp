@@ -172,9 +172,8 @@ auto CodeGen::Impl::emitInlineCall(Expr& expression) -> void
   tempTop_ = savedTempTop;
 }
 
-auto CodeGen::Impl::emitStackCallSequence(FunctionDecl* callee,
-                                          std::vector<ExprPtr>& arguments)
-    -> void
+auto CodeGen::Impl::emitStackCallSequence(
+    FunctionDecl* callee, std::vector<ExprPtr>& arguments) -> void
 {
   for (std::size_t i = 0; i < arguments.size(); ++i)
   {

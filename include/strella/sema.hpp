@@ -33,20 +33,20 @@ public:
   void analyze();
 
   [[nodiscard]] auto dataEnd() const -> int { return dataCursor_; }
-  [[nodiscard]] auto dataInitializers() const
-      -> std::vector<DataInitializer> const&
+  [[nodiscard]] auto
+  dataInitializers() const -> std::vector<DataInitializer> const&
   {
     return dataInitializers_;
   }
-  [[nodiscard]] auto runtimeGlobalInitializers() const
-      -> std::vector<VarDecl*> const&
+  [[nodiscard]] auto
+  runtimeGlobalInitializers() const -> std::vector<VarDecl*> const&
   {
     return runtimeGlobalInitializers_;
   }
   [[nodiscard]] auto usesStack() const -> bool { return usesStack_; }
   [[nodiscard]] auto stringAddress(std::string const& text) const -> int;
-  [[nodiscard]] auto stringData() const
-      -> std::vector<std::pair<int, std::string>> const&
+  [[nodiscard]] auto
+  stringData() const -> std::vector<std::pair<int, std::string>> const&
   {
     return stringData_;
   }
@@ -71,8 +71,8 @@ private:
   auto checkCall(Expr& expression) -> Type;
   auto checkBuiltinCall(Expr& expression) -> Type;
   void checkCondition(Expr& expression, char const* what);
-  auto checkArrayLiteral(Expr& literal, Type elementType, int expectedLength)
-      -> Type;
+  auto checkArrayLiteral(Expr& literal, Type elementType,
+                         int expectedLength) -> Type;
   void emitArrayData(Expr const& literal, Type const& elementType, int address);
   auto checkStructLiteral(Expr& literal, Type const& structType) -> Type;
   void emitStructData(Expr const& literal, Type const& structType, int address);
@@ -86,13 +86,13 @@ private:
   auto lookup(std::string const& name) const -> Symbol*;
   void declareSymbol(Symbol* symbol);
   auto allocateData(int size, SourceLocation const& location) -> int;
-  auto allocateString(std::string const& text, SourceLocation const& location)
-      -> int;
+  auto allocateString(std::string const& text,
+                      SourceLocation const& location) -> int;
   auto makeStaticSymbol(std::string const& name, Type type, Storage storage,
                         SourceLocation const& location) -> Symbol*;
 
-  [[nodiscard]] static auto fitsType(Type const& type, std::uint32_t value)
-      -> bool;
+  [[nodiscard]] static auto fitsType(Type const& type,
+                                     std::uint32_t value) -> bool;
   static void recordConstant(Expr& expression, std::uint32_t value);
   void addCallEdge(FunctionDecl* callee);
   void dfsRecursion(FunctionDecl* function,

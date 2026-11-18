@@ -36,8 +36,8 @@ auto compile(std::string const& source, std::string const& file, bool optimize,
   return result;
 }
 
-auto compileFile(std::string const& path, bool optimize, bool displayProtect)
-    -> CompilationResult
+auto compileFile(std::string const& path, bool optimize,
+                 bool displayProtect) -> CompilationResult
 {
   std::ifstream const input {path, std::ios::binary};
   if (!input)

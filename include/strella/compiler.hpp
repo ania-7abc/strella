@@ -19,8 +19,8 @@ namespace strella
  * code layout leaves the byte free; otherwise the image is left unchanged.
  */
 auto compile(std::string const& source, std::string const& file,
-             bool optimize = true, bool displayProtect = true)
-    -> CompilationResult;
+             bool optimize = true,
+             bool displayProtect = true) -> CompilationResult;
 
 /**
  * @brief Reads `path` and compiles it.

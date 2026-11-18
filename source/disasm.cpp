@@ -71,8 +71,8 @@ auto invalid(std::uint8_t opcode) -> Instruction
   return {"db " + hexByte(opcode), 1, false};
 }
 
-auto decode(std::vector<std::uint8_t> const& bytes, std::size_t pos)
-    -> Instruction
+auto decode(std::vector<std::uint8_t> const& bytes,
+            std::size_t pos) -> Instruction
 {
   auto const opcode = bytes.at(pos);
   auto const low = static_cast<unsigned>(opcode & 0x0F);

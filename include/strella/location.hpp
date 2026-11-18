@@ -21,8 +21,8 @@ struct SourceLocation
 /**
  * @brief Formats a source location as `file:line:column`.
  */
-inline auto formatLocation(std::string const& file, SourceLocation const& loc)
-    -> std::string
+inline auto formatLocation(std::string const& file,
+                           SourceLocation const& loc) -> std::string
 {
   return file + ':' + std::to_string(loc.line) + ':'
          + std::to_string(loc.column);
