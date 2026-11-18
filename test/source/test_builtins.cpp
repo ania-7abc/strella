@@ -1,5 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 
+#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <filesystem>
@@ -140,7 +141,10 @@ TEST_CASE("preimage is embedded in the image", "[builtins]")
     }
   }
 
-  auto const result = build("preimage: \"" + path.string()
+  auto pathString = path.string();
+  std::replace(pathString.begin(), pathString.end(), '\\', '/');
+
+  auto const result = build("preimage: \"" + pathString
                             + "\";\n"
                               "func main() { put(1); halt; }");
   std::filesystem::remove(path);
