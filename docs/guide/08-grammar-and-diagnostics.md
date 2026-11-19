@@ -228,6 +228,7 @@ stops at the first error. The table groups the most common mistakes.
 | `continue outside of a loop` | `continue` needs an enclosing loop. |
 | `... can only call @inline and @stack functions` | A static or inline function called a static function. Mark the callee `@inline` or `@stack`, or mark the caller `@stack`. |
 | `recursive call ... requires every function in the cycle to be @stack` | A recursion cycle contains a static or inline function. Mark every function in the cycle `@stack`. |
+| `preimage is not supported on the 32k target` | A preimage declaration was compiled with `--target 32k` (or `Target::K32`); preimages need the 1k target. |
 | `preimage must be 32 or 64 bytes` | A raw preimage file has the wrong size. A PNG preimage must be 16×16 pixels. |
 
 When an error points at a declaration, check the declared type first; at an

@@ -8,6 +8,7 @@
 
 #include "strella/ast.hpp"
 #include "strella/sema.hpp"
+#include "strella/target.hpp"
 
 namespace strella
 {
@@ -58,7 +59,7 @@ class CodeGen
 {
 public:
   CodeGen(Program& program, Sema& sema, std::string file,
-          bool displayProtect = true);
+          Target target = Target::K1);
   ~CodeGen();
 
   CodeGen(CodeGen&&) noexcept;

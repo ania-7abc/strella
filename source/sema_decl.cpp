@@ -10,6 +10,7 @@
 #include "strella/diagnostics.hpp"
 #include "strella/location.hpp"
 #include "strella/preimage.hpp"
+#include "strella/target.hpp"
 #include "strella/type.hpp"
 
 namespace strella
@@ -247,6 +248,12 @@ void Sema::checkPreimage()
   if (!program_.preimage.present)
   {
     return;
+  }
+
+  if (target_ == Target::K32)
+  {
+    fail(file_, SourceLocation {},
+         "preimage is not supported on the 32k target");
   }
 
   if (!program_.preimage.sourcePath.empty())

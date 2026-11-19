@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "strella/ast.hpp"
+#include "strella/target.hpp"
 
 namespace strella
 {
@@ -28,7 +29,7 @@ struct DataInitializer
 class Sema
 {
 public:
-  Sema(Program& program, std::string file);
+  Sema(Program& program, std::string file, Target target = Target::K1);
 
   void analyze();
 
@@ -101,6 +102,7 @@ private:
 
   Program& program_;
   std::string file_;
+  Target target_ = Target::K1;
 
   std::vector<Scope> scopes_;
   std::unordered_map<std::string, FunctionDecl*> functions_;

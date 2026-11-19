@@ -3,29 +3,31 @@
 #include <string>
 
 #include "strella/codegen.hpp"
+#include "strella/target.hpp"
 
 namespace strella
 {
 
 /**
- * @brief Compiles a source string into a 32 KB memory image.
+ * @brief Compiles a source string into a memory image for the chosen target.
  *
  * The whole pipeline is run: lexing, parsing, semantic analysis, optimization
  * and code generation.  User-visible problems are reported by throwing
  * CompileError.
  *
- * `displayProtect` checks bits 4 and 5 of the 63rd non-zero byte of the
- * unprotected image.  If either bit is set, a `nop` is written there and the
- * code layout leaves the byte free; otherwise the image is left unchanged.
+ * With Target::K1 (the default) preimages are allowed and display protection
+ * is off.  With Target::K32 preimages are rejected and display protection is
+ * on: bits 4 and 5 of the 63rd non-zero byte of the unprotected image are
+ * checked, and that byte becomes a `nop` if either bit is set.
  */
 auto compile(std::string const& source, std::string const& file,
              bool optimize = true,
-             bool displayProtect = true) -> CompilationResult;
+             Target target = Target::K1) -> CompilationResult;
 
 /**
- * @brief Reads `path` and compiles it.
+ * @brief Reads `path` and compiles it for the chosen target.
  */
 auto compileFile(std::string const& path, bool optimize = true,
-                 bool displayProtect = true) -> CompilationResult;
+                 Target target = Target::K1) -> CompilationResult;
 
 } // namespace strella

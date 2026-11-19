@@ -13,6 +13,7 @@
 #include "strella/ast.hpp"
 #include "strella/diagnostics.hpp"
 #include "strella/location.hpp"
+#include "strella/target.hpp"
 #include "strella/type.hpp"
 
 namespace strella
@@ -33,8 +34,9 @@ constexpr int kDataLimit = 0x39;
 
 } // namespace
 
-Sema::Sema(Program& program, std::string file)
-    : program_ {program}, file_ {std::move(file)}, dataCursor_ {kDataStart}
+Sema::Sema(Program& program, std::string file, Target target)
+    : program_ {program}, file_ {std::move(file)}, target_ {target},
+      dataCursor_ {kDataStart}
 {
 }
 

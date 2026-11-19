@@ -9,8 +9,10 @@
 #include "strella/compiler.hpp"
 #include "strella/diagnostics.hpp"
 #include "strella/disasm.hpp"
+#include "strella/target.hpp"
 
 using namespace testutil;
+using strella::Target;
 
 TEST_CASE("compiler image layout and bank packing", "[compiler]")
 {
@@ -83,8 +85,8 @@ TEST_CASE("display-protect bits 4 and 5", "[compiler][display-protect]")
     }
     source += "halt; }";
 
-    auto const raw = strella::compile(source, "<test>", true, false);
-    auto const guarded = strella::compile(source, "<test>", true, true);
+    auto const raw = strella::compile(source, "<test>", true, Target::K1);
+    auto const guarded = strella::compile(source, "<test>", true, Target::K32);
     auto const offset = static_cast<std::size_t>(find63rd(raw.image));
 
     REQUIRE(offset < raw.image.size());
@@ -105,8 +107,8 @@ TEST_CASE("display-protect bits 4 and 5", "[compiler][display-protect]")
     }
     source += "halt; }";
 
-    auto const raw = strella::compile(source, "<test>", true, false);
-    auto const guarded = strella::compile(source, "<test>", true, true);
+    auto const raw = strella::compile(source, "<test>", true, Target::K1);
+    auto const guarded = strella::compile(source, "<test>", true, Target::K32);
     auto const offset = static_cast<std::size_t>(find63rd(raw.image));
 
     REQUIRE(offset < raw.image.size());

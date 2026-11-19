@@ -12,12 +12,13 @@
 #include "strella/optimizer.hpp"
 #include "strella/parser.hpp"
 #include "strella/sema.hpp"
+#include "strella/target.hpp"
 
 namespace strella
 {
 
 auto compile(std::string const& source, std::string const& file, bool optimize,
-             bool displayProtect) -> CompilationResult
+             Target target) -> CompilationResult
 {
   Lexer lexer {source, file};
   auto tokens = lexer.tokenize();
@@ -25,19 +26,19 @@ auto compile(std::string const& source, std::string const& file, bool optimize,
   Parser parser {std::move(tokens), file};
   auto program = parser.parse();
 
-  Sema sema {program, file};
+  Sema sema {program, file, target};
   sema.analyze();
 
   auto const optimizations = optimize ? optimizeProgram(program) : 0;
 
-  CodeGen codegen {program, sema, file, displayProtect};
+  CodeGen codegen {program, sema, file, target};
   auto result = codegen.generate();
   result.optimizations = optimizations;
   return result;
 }
 
 auto compileFile(std::string const& path, bool optimize,
-                 bool displayProtect) -> CompilationResult
+                 Target target) -> CompilationResult
 {
   std::ifstream const input {path, std::ios::binary};
   if (!input)
@@ -47,7 +48,7 @@ auto compileFile(std::string const& path, bool optimize,
 
   std::ostringstream buffer;
   buffer << input.rdbuf();
-  return compile(buffer.str(), path, optimize, displayProtect);
+  return compile(buffer.str(), path, optimize, target);
 }
 
 } // namespace strella

@@ -10,10 +10,13 @@
 #include <vector>
 
 #include "machine.hpp"
+#include "strella/compiler.hpp"
 #include "strella/diagnostics.hpp"
 #include "strella/disasm.hpp"
+#include "strella/target.hpp"
 
 using namespace testutil;
+using strella::Target;
 
 TEST_CASE("terminal I/O builtins", "[builtins]")
 {
@@ -168,6 +171,14 @@ TEST_CASE("preimage is embedded in the image", "[builtins]")
   }
   auto const plain = build("func main() { put(1); halt; }");
   REQUIRE(result.layout.codeBytes == plain.layout.codeBytes);
+}
+
+TEST_CASE("preimage is rejected on the 32k target", "[builtins][target]")
+{
+  REQUIRE_THROWS_AS(
+      strella::compile("preimage: \"unused.bin\"; func main() { halt; }",
+                       "<test>", true, Target::K32),
+      strella::CompileError);
 }
 
 TEST_CASE("builtin argument types are checked strictly",

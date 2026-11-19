@@ -3,6 +3,7 @@
 ## Lesson 13 — Preimages
 
 A `preimage` attaches a startup image; at most one declaration is allowed per project.
+Preimages are available on the 1k target only.
 
 ```text
 preimage: "splash.png";
@@ -35,20 +36,21 @@ func main() {
 }
 ```
 
-### Display-protect
+### Target modes
 
-By default the compiler writes a **display-protected** image.  It checks bits 4
-and 5 (`0x30`) of the 63rd non-zero byte of the unprotected image; if either
-bit is set, that byte becomes a `nop`.  Otherwise the image is unchanged.
+The default target is 1k: preimages are allowed and display protection is off.
+On the 32k target preimages are rejected and display protection is on: bits 4
+and 5 (`0x30`) of the 63rd non-zero byte of the unprotected image are checked,
+and that byte becomes a `nop` if either bit is set.
 
-Disable it with:
+Select the target with `--target 1k`, `--target 32k`, `-1k`, `-32k` or `--32k`:
 
 ```text
-strella --no-display-protect program.strella
+strella --target 32k program.strella
 ```
 
-Library callers pass `displayProtect = false` to `strella::compile` or
-`strella::compileFile`.  Both default to `displayProtect = true`.
+Library callers pass `strella::Target::K1` or `strella::Target::K32` to
+`strella::compile` or `strella::compileFile`.  Both default to `Target::K1`.
 
 ## Lesson 14 — Constant folding and the optimizer
 

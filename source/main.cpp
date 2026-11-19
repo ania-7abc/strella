@@ -12,6 +12,9 @@
 #include "strella/compiler.hpp"
 #include "strella/diagnostics.hpp"
 #include "strella/disasm.hpp"
+#include "strella/target.hpp"
+
+using strella::Target;
 
 namespace
 {
@@ -30,9 +33,26 @@ auto usage() -> void
       << "  --disasm           disassemble a binary memory image\n"
       << "  --stats            print code-bank fragmentation statistics\n"
       << "  --no-opt           disable AST optimizations\n"
-      << "  --no-display-protect  disable bits 4/5 protection of the 63rd "
-         "byte\n"
+      << "  --target 1k|32k    select target RAM (default: 1k)\n"
+      << "  -1k, -32k, --32k   select target RAM (short forms)\n"
+      << "  32k rejects preimages and enables display protection\n"
       << "  -h, --help         show this message\n";
+}
+
+auto parseTarget(std::string const& value, Target& target) -> bool
+{
+  if (value == "1k")
+  {
+    target = Target::K1;
+    return true;
+  }
+  if (value == "32k")
+  {
+    target = Target::K32;
+    return true;
+  }
+  std::cerr << "error: unknown target '" << value << "' (expected 1k or 32k)\n";
+  return false;
 }
 
 auto withExtension(std::string const& input,
@@ -165,7 +185,7 @@ auto main(int argc, char** argv) -> int
   bool disasm = false;
   bool stats = false;
   bool optimize = true;
-  bool displayProtect = true;
+  Target target = Target::K1;
 
   for (int i = 1; i < argc; ++i)
   {
@@ -224,9 +244,38 @@ auto main(int argc, char** argv) -> int
       continue;
     }
 
-    if (argument == "--no-display-protect")
+    if (argument == "--target")
     {
-      displayProtect = false;
+      if (i + 1 >= argc)
+      {
+        std::cerr << "error: --target requires 1k or 32k\n";
+        return 2;
+      }
+      if (!parseTarget(argv[++i], target))
+      {
+        return 2;
+      }
+      continue;
+    }
+
+    if (argument.rfind("--target=", 0) == 0)
+    {
+      if (!parseTarget(argument.substr(9), target))
+      {
+        return 2;
+      }
+      continue;
+    }
+
+    if (argument == "-1k")
+    {
+      target = Target::K1;
+      continue;
+    }
+
+    if (argument == "-32k" || argument == "--32k")
+    {
+      target = Target::K32;
       continue;
     }
 
@@ -274,7 +323,7 @@ auto main(int argc, char** argv) -> int
       return emitText(output, strella::disassemble(readBinary(input)));
     }
 
-    auto const result = strella::compileFile(input, optimize, displayProtect);
+    auto const result = strella::compileFile(input, optimize, target);
 
     if (asmOutput)
     {

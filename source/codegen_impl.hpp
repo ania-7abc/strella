@@ -13,9 +13,9 @@ struct CodeGen::Impl
     bool isLoop = false;
   };
 
-  Impl(Program& program, Sema& sema, std::string file, bool displayProtect)
+  Impl(Program& program, Sema& sema, std::string file, Target target)
       : program_ {program}, sema_ {sema}, file_ {std::move(file)},
-        displayProtect_ {displayProtect}, allocator_ {sema.dataEnd()},
+        displayProtect_ {target == Target::K32}, allocator_ {sema.dataEnd()},
         image_(kImageSize, 0)
   {
   }
@@ -24,7 +24,7 @@ private:
   Program& program_;
   Sema& sema_;
   std::string file_;
-  bool displayProtect_ = true;
+  bool displayProtect_ = false;
   int protectedImageOffset_ = -1;
   CommonAllocator allocator_;
   std::vector<std::uint8_t> image_;
